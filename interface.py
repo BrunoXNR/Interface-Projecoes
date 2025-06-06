@@ -752,7 +752,7 @@ class ExportarPDF: # Classe com a criação e configuração do arquivo PDF com 
             canvas.rect(0, altura - altura_margem, largura, altura_margem, fill=1, stroke=0)
 
             # Logotipo
-            canvas.drawImage("utils/logofh_pdf2.jpeg", 10, altura - altura_margem + 5, width=40, height=40)
+            canvas.drawImage(Interface.resource_path("utils/logofh_pdf2.jpeg"), 10, altura - altura_margem + 5, width=40, height=40)
 
             # Título
             titulo = "Relatório de Projeção Financeira"
