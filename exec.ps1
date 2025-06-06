@@ -8,7 +8,7 @@ if (-not (Get-Command pyinstaller -ErrorAction SilentlyContinue)) {
 
 # Executa o comando PyInstaller no PowerShell
 Write-Host "Empacotando o arquivo"
-pyinstaller --noconfirm --onefile --windowed --icon=utils/logofh.ico --add-data "utils;utils" interface.py
+pyinstaller --noconfirm --onefile --windowed --icon=utils/logofh.ico --add-data "utils;utils" --hidden-import=reportlab --hidden-import=matplotlib.backends.backend_agg interface.py
 
 # Verifica se o comando foi executado com sucesso
 if ($?) {
