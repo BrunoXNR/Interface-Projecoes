@@ -151,7 +151,7 @@ class CalculosProjecao: # Classe com as funções para os cálculos da projeçã
             if taxa_origem < 0 or periodo_origem <= 0 or periodo_destino <= 0:
                 raise ValueError("Taxa e períodos devem ser não negativos e períodos maiores que zero")
             
-            taxa_convertida = ((1 + taxa_origem) ** (periodo_origem / periodo_destino)) - 1
+            taxa_convertida = ((1 + taxa_origem) ** (periodo_destino / periodo_origem)) - 1
             return taxa_convertida
         
         except Exception as e:
