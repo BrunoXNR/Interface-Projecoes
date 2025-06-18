@@ -32,4 +32,5 @@ Este projeto é uma aplicação desktop do tipo GUI (Graphical User Interface) f
 pip install pandas numpy matplotlib seaborn customtkinter reportlab pillow
 ```
 
-## 
+## Execução
+- Execute o comando do arquivo ``` exec.ps1 ``` para gerar o arquivo executável do programa
