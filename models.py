@@ -62,7 +62,7 @@ class CalculosProjecao: # Classe com as funções para os cálculos da projeçã
 
 
     @staticmethod
-    def total_aportes(aportes_por_periodo): # Função para o cálculo da soma do VALOR TOTAL DE APORTES realizados na projeção
+    def total_aportes(aportes_por_periodo): # Função para o cálculo da SOMA do VALOR TOTAL DE APORTES realizados na projeção
         try:
             total_aportes = 0
             for aporte, duracao in aportes_por_periodo:
@@ -165,26 +165,34 @@ class CalculosProjecao: # Classe com as funções para os cálculos da projeçã
             if patrimonio_inicial <= 0 or retirada_mensal <= 0 or taxa_juros_real < 0:
                 raise ValueError("Patrimônio inicial, retirada mensal ou taxa de juros não podem ser negativos")
 
+            patrimonio_historico = [] # Lista para armazenar a evolução do patrimônio (para o gráfico do decaimento)
+
             if patrimonio_inicial * taxa_juros_real >= retirada_mensal:
                 return float('inf'), None, None  # Casos onde o rendimento do capital cobre completamente o valor da retirada
 
             meses = 0
             patrimonio = patrimonio_inicial
+            patrimonio_historico.append({'Mês': meses, 'Patrimônio': patrimonio}) 
 
-            while patrimonio > 0:
-                patrimonio = (patrimonio - retirada_mensal) * (1 + taxa_juros_real) # Retiradas Mensais Fixas
-                meses += 1
-                if meses > 100000:  # Limite para evitar loops muito longos
-                    return float('inf'), None, None  # Trata como infinito se exceder o limite
+            patrimonio = (patrimonio - retirada_mensal) * (1 + taxa_juros_real) # Calcula a retirada mensal e considera a rentabilidade do patrimônio restante
+            meses += 1
+
+            if patrimonio > 0: # Enquanto o patrimônio não for zerado, adicionar o valor restante no histórico
+                patrimonio_historico.append({'Mês': meses, 'Patrimônio': patrimonio}) 
+            else:
+                patrimonio_historico.append({'Mês': meses, 'Patrimônio': 0}) # Quando o patrimônio for zerado, adiciona 0 para finalizar
+
+            if meses > 100000:  # Limite para evitar loops muito longos
+                return float('inf'), None, None, []  # Trata como infinito se exceder o limite e retorna lista vazia
 
             anos = meses // 12
             meses_restantes = meses % 12
 
-            return meses, anos, meses_restantes
+            return meses, anos, meses_restantes, patrimonio_historico
 
         except Exception as e:
             print(f"Erro no cálculo do tempo de usufruto: {e}")
-            return None, None, None
+            return None, None, None, []
 
 
     @staticmethod
@@ -288,5 +296,44 @@ class CalculosProjecao: # Classe com as funções para os cálculos da projeçã
                 'Entrada': entrada
             }
         
+        except Exception as e:
+            raise ValueError(f"Ocorreu um erro inesperado: {str(e)}")
+
+
+    @staticmethod
+    def prazo_para_valor_futuro(capital_inicial, aporte_mensal, taxa_juros, valor_futuro_desejado): # Cálculo do PRAZO NECESSÁRIO para atingir um VALOR FUTURO COM APORTES
+
+        try:
+            if capital_inicial < 0 or aporte_mensal < 0 or taxa_juros < 0 or valor_futuro_desejado <= 0:
+                raise ValueError("Capital inicial, aporte mensal, taxa de juros não podem ser negativos. O valor futuro desejado deve ser positivo.")
+            if capital_inicial >= valor_futuro_desejado:
+                return 0
+
+            meses = 0
+            patrimonio_atual = capital_inicial
+
+            if taxa_juros == 0: # Caso o juro seja zero, retorna 0, pois o valor nunca será rentabilizado
+                if aporte_mensal == 0:
+                    return float('inf')
+                if patrimonio_atual < valor_futuro_desejado:
+                    diferenca = valor_futuro_desejado - patrimonio_atual
+                    meses = math.ceil(diferenca / aporte_mensal)
+                    return int(meses)
+                else:
+                    return 0
+
+            max_meses = 1000 * 12 # Limite para evitar loops infinitos
+            
+            while patrimonio_atual < valor_futuro_desejado and meses < max_meses: # Retorna o prazo em meses
+                patrimonio_atual = (patrimonio_atual + aporte_mensal) * (1 + taxa_juros)
+                meses += 1
+            anos = meses / 12 # Retorna o prazo em anos
+            
+            if patrimonio_atual < valor_futuro_desejado:
+                return float('inf')
+            
+            else:
+                return meses, anos
+
         except Exception as e:
             raise ValueError(f"Ocorreu um erro inesperado: {str(e)}")
