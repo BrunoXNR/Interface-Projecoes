@@ -1,6 +1,6 @@
 # Script para empacotar e distribuir o projeto em um arquivo executável (.exe) usando PyInstaller
 
-# Verifica se o a biblioteca PyInstaller está instalada
+# Verifica se a biblioteca PyInstaller está instalada
 if (-not (Get-Command pyinstaller -ErrorAction SilentlyContinue)) {
     Write-Host "PyInstaller não encontrado. Instalando..."
     pip install pyinstaller
