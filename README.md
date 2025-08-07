@@ -7,9 +7,9 @@ Este projeto é uma aplicação desktop do tipo GUI (Graphical User Interface) f
 ### Cálculos Financeiros
 
 - Projeção de valor futuro com e sem aportes (regime antecipado).
-- Cálculo de taxa de juros real, considerando inflação.
-- Renda perpétua (vitalícia) com base no valor acumulado.
-- Cálculo a partir de valores de aportes variáveis por período de tempo
+- Cálculo da projeção considerando taxa nominal e real
+- Cálculo da renda perpétua com base no valor acumulado.
+- Cálculo a partir de valores de aportes mensais variáveis por período de tempo
 
 ![Tela principal da calculadora financeira](assets/img01.png)
 
