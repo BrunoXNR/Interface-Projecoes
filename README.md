@@ -1,6 +1,6 @@
 ## Descrição do Projeto
 
-Este projeto é uma aplicação desktop do tipo GUI (Graphical User Interface) feita em Python para cálculos de projeções financeiras. Foi desenvolvida  utilizando a biblioteca `customtkinter`, que oferece uma interface gráfica intuitiva, gráficos interativos feitos com `matplotlib` e `seaborn`, e a possibilidade de exportação de um relatório em PDF via `reportlab`.
+Este projeto é uma aplicação desktop do tipo GUI (Graphical User Interface) feita em Python para cálculos de projeções financeiras. Foi desenvolvida  utilizando a biblioteca `customtkinter`, que oferece uma interface gráfica intuitiva, gráficos interativos feitos com `matplotlib` e `seaborn`, e a possibilidade de exportação de um relatório personalizado em PDF via `reportlab`.
 
 ## Funcionalidades
 
@@ -11,10 +11,15 @@ Este projeto é uma aplicação desktop do tipo GUI (Graphical User Interface) f
 - Renda perpétua (vitalícia) com base no valor acumulado.
 - Cálculo a partir de valores de aportes variáveis por período de tempo
 
-
 ![Tela principal da calculadora financeira](assets/img01.png)
 
 
+### Gráfico Interativo
+
+- Visualização da evolução patrimonial (nominal e real, com e sem aportes).
+- Cursor interativo para exibir valores em pontos específicos.
+
+![Tela do gráfico da projeção](assets/img02.png)
 
 
 ### Exportação do Relatório
@@ -22,10 +27,8 @@ Este projeto é uma aplicação desktop do tipo GUI (Graphical User Interface) f
 - Relatórios em PDF contendo os dados de entrada, resultados e gráfico da projeção
 - Personalização com sigla ou nome do cliente.
 
-### Gráfico Interativo
+![Imagem do relatório da projeção exportado](assets/img03.png)
 
-- Visualização da evolução patrimonial (nominal e real, com e sem aportes).
-- Cursor interativo para exibir valores em pontos específicos.
 
 ## Requisitos
 
